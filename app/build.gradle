@@ -19,12 +19,33 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        viewBinding =  true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "version"
+    productFlavors {
+        dev {
+            applicationIdSuffix ".dev"
+
+            //resValue "string", "app_name", "Go Play test Widhi - Dev"
+            buildConfigField "String", "BASE_URL", '"api.openweathermap.org/data/2.5/"'
+            buildConfigField "String", "API_KEY", '"a647b81bf8b5ba1202f962ca0958287e"'
+        }
+        prod {
+            //resValue "string", "app_name", "Go Play test Widhi"
+            buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/3/"'
+            buildConfigField "String", "API_KEY", '"a647b81bf8b5ba1202f962ca0958287e"'
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
