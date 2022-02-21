@@ -20,8 +20,8 @@ class App : Application() {
     }
 
     private fun setDefaultTheme(theme: Theme = Theme.LIGHT) {
-        if (theme == Theme.DARK) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        if (theme == Theme.LIGHT) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 

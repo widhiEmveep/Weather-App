@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Toolbar -->
+    <declare-styleable name="Toolbar">
+        <attr name="title_text" format="string"/>
+        <attr name="search" format="boolean"/>
+        <attr name="left_action_icon" format="enum">
+            <enum name="favorite" value="0"/>
+            <enum name="back" value="1"/>
+        </attr>
+    </declare-styleable>
+
+</resources>
