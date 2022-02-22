@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/splash_screen"
+    android:id="@+id/home_nav_graph">
+
+    <fragment
+        android:id="@+id/splash_screen"
+        android:name="com.example.weatherapp.presentation.fragment.SplashScreenFragment"
+        android:label="Splash screen"
+        tools:layout="@layout/fragment_splash_screen">
+
+        <action
+            android:id="@+id/action_to_home"
+            app:destination="@id/home_fragment"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/home_fragment"
+        android:name="com.example.weatherapp.presentation.fragment.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_to_search_result"
+            app:destination="@id/search_result_fragment"/>
+
+        <action
+            android:id="@+id/action_to_favorite"
+            app:destination="@id/favoriteCityFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/search_result_fragment"
+        android:name="com.example.weatherapp.presentation.fragment.SearchResultFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+
+        <argument
+            android:name="cityName"
+            android:defaultValue=""
+            app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteCityFragment"
+        android:name="com.example.weatherapp.presentation.fragment.FavoriteFragment"
+        android:label="Favorite"
+        tools:layout="@layout/fragment_favorite">
+
+        <action
+            android:id="@+id/action_to_search_result"
+            app:destination="@id/search_result_fragment"/>
+
+    </fragment>
+
+</navigation>
