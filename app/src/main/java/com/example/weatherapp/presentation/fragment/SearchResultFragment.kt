@@ -20,11 +20,19 @@ class SearchResultFragment : Fragment(R.layout.fragment_home) {
     private val binding by viewBinding<FragmentHomeBinding>()
     private val viewModel by viewModels<WeatherViewModel>()
 
+    private val weatherListAdapter = WeatherListAdapter()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initFetchData(args.cityName)
         initUI()
+        setAdapter()
+        initWeatherList()
+    }
+
+    private fun setAdapter() {
+        binding.rvWeatherList.adapter = weatherListAdapter
     }
 
     private fun initFetchData(cityName: String) {
@@ -49,10 +57,24 @@ class SearchResultFragment : Fragment(R.layout.fragment_home) {
                     binding.toolbar.leftIcon.setOnClickListener {
                         navController.navigateUp()
                     }
+
+                    val lat = result.data?.coord?.lat!!
+                    val lon = result.data.coord?.lon!!
+                    viewModel.getForecastWeather(lat, lon)
                 }
                 is Result.Loading -> {
                 }
                 is Result.Error -> {
+                }
+            }
+        })
+    }
+
+    private fun initWeatherList() {
+        viewModel.forecastWeather.observe(viewLifecycleOwner, { result ->
+            when (result) {
+                is Result.Success -> {
+                    weatherListAdapter.items = result.data?.list.orEmpty()
                 }
             }
         })

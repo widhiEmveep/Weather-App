@@ -2,6 +2,7 @@ package com.example.weatherapp.data.repository
 
 import com.example.weatherapp.data.remote.Result
 import com.example.weatherapp.data.remote.model.currentweather.CurrentWeatherModel
+import com.example.weatherapp.data.remote.model.forecast.ForecastWeathersModel
 import com.example.weatherapp.data.source.WeatherLocalDataSource
 import com.example.weatherapp.data.source.WeatherRemoteDataSource
 import com.example.weatherapp.data.source.callback.WeatherSourceCallback
@@ -19,4 +20,7 @@ class WeatherRepository(
 
     override fun getWeatherByCity(cityName: String): Flow<Result<CurrentWeatherModel>> =
         remoteDataSource.handleCurrentWeatherByCity(cityName)
+
+    override fun getForecastWeather(lat: Double, lon: Double): Flow<Result<ForecastWeathersModel>> =
+        remoteDataSource.handleForecastWeather(lat, lon)
 }

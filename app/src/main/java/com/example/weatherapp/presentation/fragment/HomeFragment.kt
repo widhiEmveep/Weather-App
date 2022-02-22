@@ -33,11 +33,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding by viewBinding<FragmentHomeBinding>()
     private val viewModel by viewModels<WeatherViewModel>()
 
+    private val weatherListAdapter = WeatherListAdapter()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initUI()
         initFetchData()
+        setAdapter()
+        initWeatherList()
+    }
+
+    private fun setAdapter() {
+        binding.rvWeatherList.adapter = weatherListAdapter
     }
 
     private fun initFetchData() {
@@ -63,10 +71,24 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         }
                         false
                     }
+
+                    val lat = result.data?.coord?.lat!!
+                    val lon = result.data.coord?.lon!!
+                    viewModel.getForecastWeather(lat, lon)
                 }
                 is Result.Loading -> {
                 }
                 is Result.Error -> {
+                }
+            }
+        })
+    }
+
+    private fun initWeatherList() {
+        viewModel.forecastWeather.observe(viewLifecycleOwner, { result ->
+            when (result) {
+                is Result.Success -> {
+                    weatherListAdapter.items = result.data?.list.orEmpty()
                 }
             }
         })

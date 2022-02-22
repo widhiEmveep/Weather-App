@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import com.example.weatherapp.data.remote.Result
 import com.example.weatherapp.data.remote.model.currentweather.CurrentWeatherModel
+import com.example.weatherapp.data.remote.model.forecast.ForecastWeathersModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -21,9 +22,11 @@ class WeatherViewModel @Inject constructor(
 
     private var _currentWeather: MutableLiveData<Result<CurrentWeatherModel>> = MutableLiveData()
     private var _weatherByCityName: MutableLiveData<Result<CurrentWeatherModel>> = MutableLiveData()
+    private var _forecastWeather: MutableLiveData<Result<ForecastWeathersModel>> = MutableLiveData()
 
     val currentWeather: LiveData<Result<CurrentWeatherModel>> get() = _currentWeather
     val weatherByCityName: LiveData<Result<CurrentWeatherModel>> get() = _weatherByCityName
+    val forecastWeather: LiveData<Result<ForecastWeathersModel>> get() = _forecastWeather
 
     init {
         observeNetworkCallback()
@@ -35,5 +38,9 @@ class WeatherViewModel @Inject constructor(
 
     fun getWeatherByCity(cityName: String) = weatherRepository.getWeatherByCity(cityName)
         .onEach { result -> _weatherByCityName.value = result }
+        .launchIn(viewModelScope)
+
+    fun getForecastWeather(lat: Double, lon: Double) = weatherRepository.getForecastWeather(lat, lon)
+        .onEach { result -> _forecastWeather.value = result }
         .launchIn(viewModelScope)
 }

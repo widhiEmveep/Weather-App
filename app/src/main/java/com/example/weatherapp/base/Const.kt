@@ -6,7 +6,7 @@ object Const {
 
     object Network {
         const val CURRENT_WEATHER = "weather"
-        const val FORECAST_DAILY = "forecast/daily"
+        const val FORECAST_DAILY = "forecast"
     }
 
     object Entity {
