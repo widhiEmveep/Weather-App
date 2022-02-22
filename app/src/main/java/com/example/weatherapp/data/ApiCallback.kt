@@ -13,15 +13,15 @@ interface ApiCallback {
     suspend fun getCurrentWeather(
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
-        @Query("units") unit : String,
-        @Query("appid") apiKey : String
+        @Query("units") unit: String,
+        @Query("appid") apiKey: String
     ): Response<CurrentWeatherModel>
 
     @GET(Const.Network.CURRENT_WEATHER)
     suspend fun getWeatherByCity(
         @Query("q") cityName: String,
-        @Query("units") unit : String,
-        @Query("appid") apiKey : String
+        @Query("units") unit: String,
+        @Query("appid") apiKey: String
     ): Response<CurrentWeatherModel>
 
     @GET(Const.Network.FORECAST_DAILY)
@@ -29,7 +29,7 @@ interface ApiCallback {
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
         @Query("cnt") count: Int,
-        @Query("units") unit : String,
-        @Query("appid") apiKey : String
+        @Query("units") unit: String,
+        @Query("appid") apiKey: String
     ): Response<ForecastWeathersModel>
 }

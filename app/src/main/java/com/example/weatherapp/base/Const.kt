@@ -11,6 +11,6 @@ object Const {
 
     object Entity {
         const val DATABASE_NAME = "DATABASE"
-        const val FAVORITE_CITY = "favorite_city_entity"
+        const val FAVORITE_CITY_ENTITY = "favorite_city_entity"
     }
 }

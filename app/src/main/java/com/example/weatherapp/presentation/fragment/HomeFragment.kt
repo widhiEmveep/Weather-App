@@ -1,31 +1,18 @@
 package com.example.weatherapp.presentation.fragment
 
-import android.annotation.SuppressLint
-import android.app.Service
-import android.content.pm.PackageManager
-import android.location.Location
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Bundle
-import android.os.Looper
-import android.view.ContextThemeWrapper
+import android.os.Handler
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.core.app.ActivityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.weatherapp.MainActivity
 import com.example.weatherapp.R
 import com.example.weatherapp.data.remote.Result
 import com.example.weatherapp.databinding.FragmentHomeBinding
 import com.example.weatherapp.utils.navController
 import com.example.weatherapp.utils.viewBinding
 import com.example.weatherapp.viewmodel.WeatherViewModel
-import com.google.android.gms.location.*
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -42,6 +29,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         initFetchData()
         setAdapter()
         initWeatherList()
+        initSwipeRefresh()
+
+        binding.toolbar.leftIcon.setOnClickListener {
+            navController.navigate(HomeFragmentDirections.actionToFavorite())
+        }
+
+        binding.ivFavorite.visibility = View.GONE
     }
 
     private fun setAdapter() {
@@ -50,13 +44,28 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun initFetchData() {
         viewModel.getCurrentWeather(0.0, 0.0)
+        viewModel.getFavCityResult()
+    }
+
+    private fun initSwipeRefresh() {
+        binding.swipeLayout.setOnRefreshListener {
+            initFetchData()
+            initWeatherList()
+            initUI()
+
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                if (binding.swipeLayout.isRefreshing) {
+                    binding.swipeLayout.isRefreshing = false
+                }
+            }, 2000)
+        }
     }
 
     private fun initUI() {
         viewModel.currentWeather.observe(viewLifecycleOwner, { result ->
             when (result) {
                 is Result.Success -> {
-                    //binding.tvTemperature.text = resources.getString(R.string.temp_format).format(result.data?.main?.temp)
                     binding.tvTemperature.text = "${result.data?.main?.temp} \u2103"
                     binding.tvWeather.text = result.data?.weather?.get(0)?.main
                     binding.tvWindSpeed.text = result.data?.wind?.speed.toString() + " m/s"

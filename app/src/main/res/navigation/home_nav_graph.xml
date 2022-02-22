@@ -28,6 +28,10 @@
             android:id="@+id/action_to_search_result"
             app:destination="@id/search_result_fragment"/>
 
+        <action
+            android:id="@+id/action_to_favorite"
+            app:destination="@id/favoriteCityFragment"/>
+
     </fragment>
 
     <fragment
@@ -40,6 +44,18 @@
             android:name="cityName"
             android:defaultValue=""
             app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteCityFragment"
+        android:name="com.example.weatherapp.presentation.fragment.FavoriteFragment"
+        android:label="Favorite"
+        tools:layout="@layout/fragment_favorite">
+
+        <action
+            android:id="@+id/action_to_search_result"
+            app:destination="@id/search_result_fragment"/>
 
     </fragment>
 

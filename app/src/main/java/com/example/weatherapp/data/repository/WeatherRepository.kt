@@ -1,5 +1,6 @@
 package com.example.weatherapp.data.repository
 
+import com.example.weatherapp.data.local.entity.FavoriteCity
 import com.example.weatherapp.data.remote.Result
 import com.example.weatherapp.data.remote.model.currentweather.CurrentWeatherModel
 import com.example.weatherapp.data.remote.model.forecast.ForecastWeathersModel
@@ -23,4 +24,12 @@ class WeatherRepository(
 
     override fun getForecastWeather(lat: Double, lon: Double): Flow<Result<ForecastWeathersModel>> =
         remoteDataSource.handleForecastWeather(lat, lon)
+
+    override fun getFavCityResult(): Flow<List<FavoriteCity>> = localDataSource.getFavCity()
+
+    override suspend fun insertFavCityResult(favoriteCity: FavoriteCity) =
+        localDataSource.insertFavCityResult(favoriteCity)
+
+    override suspend fun deleteFavCityResult(cityName: String) =
+        localDataSource.deleteFavCityResult(cityName)
 }

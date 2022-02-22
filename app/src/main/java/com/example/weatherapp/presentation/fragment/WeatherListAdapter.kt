@@ -5,13 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapp.data.remote.model.currentweather.Weather
 import com.example.weatherapp.data.remote.model.forecast.WeatherList
 import com.example.weatherapp.databinding.ItemWeatherListBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WeatherListAdapter: RecyclerView.Adapter<WeatherListAdapter.ViewHolder>() {
+class WeatherListAdapter : RecyclerView.Adapter<WeatherListAdapter.ViewHolder>() {
 
     var items: List<WeatherList>
         get() = diffUtil.currentList
@@ -20,7 +19,7 @@ class WeatherListAdapter: RecyclerView.Adapter<WeatherListAdapter.ViewHolder>() 
         }
 
     inner class ViewHolder(private val binding: ItemWeatherListBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root) {
         fun onBind(pos: Int, item: WeatherList) {
             binding.apply {
                 val date = Date(item.dt!!)
@@ -31,7 +30,10 @@ class WeatherListAdapter: RecyclerView.Adapter<WeatherListAdapter.ViewHolder>() 
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherListAdapter.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): WeatherListAdapter.ViewHolder {
         val binding = ItemWeatherListBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
@@ -59,11 +61,5 @@ class WeatherListAdapter: RecyclerView.Adapter<WeatherListAdapter.ViewHolder>() 
             oldModel: WeatherList,
             newModel: WeatherList
         ) = oldModel.dt == newModel.dt
-    }
-
-    var onItemClickListener: (Int) -> Unit = { _ -> }
-
-    fun onItemClickListenerCallback(callback: (id: Int) -> Unit) {
-        onItemClickListener = callback
     }
 }

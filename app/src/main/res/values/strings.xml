@@ -14,4 +14,7 @@
     <string name="temp_format">%s% &#176;C</string>
     <string name="wind_speed_format">%s% m/sec</string>
     <string name="percentage_format">%s% %</string>
+
+    <string name="success_add_fav_city">City Added to favorite</string>
+    <string name="success_delete_fav_city">City Deleted from favorite</string>
 </resources>
