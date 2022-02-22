@@ -16,7 +16,7 @@ class Toolbar(context: Context, attrs: AttributeSet? = null) :
     private val leftIcon: ImageView
     private val titleTextView: TextView
     private val searchIcon: ImageView
-    private val searchEditText: EditText
+    val searchEditText: EditText
     private var icon = 0
 
     init {
@@ -39,6 +39,18 @@ class Toolbar(context: Context, attrs: AttributeSet? = null) :
 
                 setTitle(getString(R.styleable.Toolbar_title_text).orEmpty())
                 setSearchBar(getBoolean(R.styleable.Toolbar_search, false))
+
+                var status = true
+                searchIcon.setOnClickListener {
+                    status = if (status) {
+                        setSearchBar(true)
+                        false
+                    } else {
+                        setSearchBar(false)
+                        true
+                    }
+
+                }
 
             } finally {
                 recycle()
@@ -72,9 +84,6 @@ class Toolbar(context: Context, attrs: AttributeSet? = null) :
         if (status) {
             titleTextView.isVisible = false
             searchEditText.isVisible = true
-            searchIcon.setOnClickListener {
-
-            }
         } else {
             titleTextView.isVisible = true
             searchEditText.isVisible = false

@@ -10,4 +10,8 @@
     <string name="wind_flow">Wind Flow</string>
     <string name="humidity">Humidity</string>
     <string name="cloudiness">Cloudiness</string>
+
+    <string name="temp_format">%s% &#176;C</string>
+    <string name="wind_speed_format">%s% m/sec</string>
+    <string name="percentage_format">%s% %</string>
 </resources>
