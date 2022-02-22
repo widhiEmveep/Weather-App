@@ -21,6 +21,13 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="@id/guideline">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.50" />
+
         <ImageView
             android:id="@+id/ivIcon"
             android:layout_width="@dimen/_150sdp"
@@ -36,10 +43,9 @@
             android:id="@+id/tvTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
             android:textAppearance="@style/TextAppearance.Nunito.SemiBold.Headline3"
             android:textColor="@color/main_text_color"
-            app:layout_constraintStart_toEndOf="@id/ivIcon"
+            app:layout_constraintStart_toEndOf="@id/guidelineCenter"
             app:layout_constraintTop_toBottomOf="@id/ivIcon"
             tools:text="20" />
 

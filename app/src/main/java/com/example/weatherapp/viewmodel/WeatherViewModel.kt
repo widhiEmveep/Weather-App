@@ -20,8 +20,10 @@ class WeatherViewModel @Inject constructor(
 ) : BaseViewModel(application) {
 
     private var _currentWeather: MutableLiveData<Result<CurrentWeatherModel>> = MutableLiveData()
+    private var _weatherByCityName: MutableLiveData<Result<CurrentWeatherModel>> = MutableLiveData()
 
     val currentWeather: LiveData<Result<CurrentWeatherModel>> get() = _currentWeather
+    val weatherByCityName: LiveData<Result<CurrentWeatherModel>> get() = _weatherByCityName
 
     init {
         observeNetworkCallback()
@@ -31,4 +33,7 @@ class WeatherViewModel @Inject constructor(
         .onEach { result -> _currentWeather.value = result }
         .launchIn(viewModelScope)
 
+    fun getWeatherByCity(cityName: String) = weatherRepository.getWeatherByCity(cityName)
+        .onEach { result -> _weatherByCityName.value = result }
+        .launchIn(viewModelScope)
 }

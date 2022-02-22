@@ -19,7 +19,7 @@ class SplashScreenFragment: Fragment(R.layout.fragment_splash_screen) {
                 clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
                 addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                 addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-                statusBarColor = context.resources.getColor(R.color.white)
+                statusBarColor = context.resources.getColor(R.color.main_text_color)
             }
         }
 

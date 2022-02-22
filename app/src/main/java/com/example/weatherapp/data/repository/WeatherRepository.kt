@@ -16,4 +16,7 @@ class WeatherRepository(
 
     override fun getCurrentWeather(lat: Double, lon: Double): Flow<Result<CurrentWeatherModel>> =
         remoteDataSource.handleGetCurrentWeather(lat, lon)
+
+    override fun getWeatherByCity(cityName: String): Flow<Result<CurrentWeatherModel>> =
+        remoteDataSource.handleCurrentWeatherByCity(cityName)
 }

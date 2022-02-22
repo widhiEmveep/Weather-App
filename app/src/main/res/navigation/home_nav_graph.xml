@@ -24,6 +24,23 @@
         android:label="Home"
         tools:layout="@layout/fragment_home">
 
+        <action
+            android:id="@+id/action_to_search_result"
+            app:destination="@id/search_result_fragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/search_result_fragment"
+        android:name="com.example.weatherapp.presentation.fragment.SearchResultFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+
+        <argument
+            android:name="cityName"
+            android:defaultValue=""
+            app:argType="string" />
+
     </fragment>
 
 </navigation>

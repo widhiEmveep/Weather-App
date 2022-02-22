@@ -8,4 +8,7 @@ class WeatherRemoteDataSource(private val apiCallback: ApiCallback) {
 
     fun handleGetCurrentWeather(lat: Double, lon: Double) =
         flowResponse { apiCallback.getCurrentWeather(lat = lat, lon = lon, unit = "metric", Const.API_KEY) }
+
+    fun handleCurrentWeatherByCity(cityName: String) =
+        flowResponse { apiCallback.getWeatherByCity(cityName = cityName, unit = "metric", Const.API_KEY) }
 }

@@ -33,11 +33,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding by viewBinding<FragmentHomeBinding>()
     private val viewModel by viewModels<WeatherViewModel>()
 
-    @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        onFetchData()
+        initUI()
         initFetchData()
     }
 
@@ -45,16 +44,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.getCurrentWeather(0.0, 0.0)
     }
 
-    private fun onFetchData() {
+    private fun initUI() {
         viewModel.currentWeather.observe(viewLifecycleOwner, { result ->
             when (result) {
                 is Result.Success -> {
                     //binding.tvTemperature.text = resources.getString(R.string.temp_format).format(result.data?.main?.temp)
-                    binding.tvTemperature.text = "${result.data?.main?.temp}"
+                    binding.tvTemperature.text = "${result.data?.main?.temp} \u2103"
                     binding.tvWeather.text = result.data?.weather?.get(0)?.main
-                    binding.tvWindSpeed.text = result.data?.wind?.speed.toString()
-                    binding.tvHumidity.text = result.data?.main?.humidity.toString()
-                    binding.tvCloudiness.text = result.data?.clouds?.all.toString()
+                    binding.tvWindSpeed.text = result.data?.wind?.speed.toString() + " m/s"
+                    binding.tvHumidity.text = result.data?.main?.humidity.toString() + "%"
+                    binding.tvCloudiness.text = result.data?.clouds?.all.toString() + "%"
                     binding.toolbar.setTitle(result.data?.name.orEmpty())
 
                     binding.toolbar.searchEditText.setOnEditorActionListener { v, actionId, event ->
@@ -74,6 +73,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun performSearch(cityName: String) {
-
+        navController.navigate(HomeFragmentDirections.actionToSearchResult(cityName))
+        binding.toolbar.searchEditText.clearFocus()
+        binding.toolbar.searchEditText.setText("")
     }
 }

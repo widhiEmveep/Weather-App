@@ -15,4 +15,11 @@ interface ApiCallback {
         @Query("units") unit : String,
         @Query("appid") apiKey : String
     ): Response<CurrentWeatherModel>
+
+    @GET(Const.Network.CURRENT_WEATHER)
+    suspend fun getWeatherByCity(
+        @Query("q") cityName: String,
+        @Query("units") unit : String,
+        @Query("appid") apiKey : String
+    ): Response<CurrentWeatherModel>
 }

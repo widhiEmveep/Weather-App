@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface WeatherSourceCallback {
 
     fun getCurrentWeather(lat: Double, lon: Double) : Flow<Result<CurrentWeatherModel>>
-
+    fun getWeatherByCity(cityName: String) : Flow<Result<CurrentWeatherModel>>
 }

@@ -13,7 +13,7 @@ import com.example.weatherapp.R
 class Toolbar(context: Context, attrs: AttributeSet? = null) :
     ConstraintLayout(context, attrs) {
 
-    private val leftIcon: ImageView
+    val leftIcon: ImageView
     private val titleTextView: TextView
     private val searchIcon: ImageView
     val searchEditText: EditText
@@ -88,5 +88,9 @@ class Toolbar(context: Context, attrs: AttributeSet? = null) :
             titleTextView.isVisible = true
             searchEditText.isVisible = false
         }
+    }
+
+    fun setSearchIcon(status: Boolean) {
+        searchIcon.isVisible = status
     }
 }
